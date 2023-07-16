@@ -11,8 +11,6 @@ const registerRouter = require('./routers/registerRouter');
 const app = express();
 const port = process.env.PORT || 8001;
 
-// connectDB();
-
 app.use(cors());
 app.use(express.json());
 
