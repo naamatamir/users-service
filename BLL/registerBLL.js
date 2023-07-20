@@ -27,6 +27,7 @@ const registerUser = async (username, password, firstName, lastName) => {
       password: hashedPassword,
       firstName,
       lastName,
+      isAdmin: true,
     });
 
     const savedUser = await newUser.save();
