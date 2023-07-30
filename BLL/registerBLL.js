@@ -38,7 +38,7 @@ const registerUser = async (username, password, firstName, lastName) => {
     //   permissions: ['viewMovies'],
     // });
 
-    await defaultPermissions.save();
+    // await defaultPermissions.save();
 
     // Generate token
     const token = jwt.sign(
