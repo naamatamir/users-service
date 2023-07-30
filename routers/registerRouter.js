@@ -16,7 +16,8 @@ registerRouter.route('/').post(async (req, res) => {
       token: userRegisterData.token,
     });
   } catch (error) {
-    res.status(500).json({ error: { message: error.message } });
+    console.error(`Error occurred during registration: ${error.message}`);
+    res.status(500).json({ error: { message: 'An error occurred during registration. Please try again later.'  } });
   }
 });
 
