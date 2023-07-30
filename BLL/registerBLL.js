@@ -47,7 +47,7 @@ const registerUser = async (username, password, firstName, lastName) => {
         username: savedUser.username,
         firstName: savedUser.firstName,
         lastName: savedUser.lastName,
-        permissions: defaultPermissions.permissions,
+        // permissions: defaultPermissions.permissions,
         isAdmin: savedUser.isAdmin,
       },
       process.env.JWT_SECRET,
