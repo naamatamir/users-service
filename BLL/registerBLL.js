@@ -32,11 +32,11 @@ const registerUser = async (username, password, firstName, lastName) => {
 
     const savedUser = await newUser.save();
 
-    //Create default permissions for new user:
-    const defaultPermissions = new Permission({
-      authUserId: savedUser._id,
-      permissions: ['viewMovies'],
-    });
+    // //Create default permissions for new user:
+    // const defaultPermissions = new Permission({
+    //   authUserId: savedUser._id,
+    //   permissions: ['viewMovies'],
+    // });
 
     await defaultPermissions.save();
 

@@ -32,7 +32,7 @@ const addAuthUser = async (obj) => {
     const newAuthUser = new AuthUser(obj);
     const savedUser = await newAuthUser.save();
 
-    // //Create default permissions for new user - if not required by admin: /
+    // // Create default permissions for new user - if not required by admin: /
     // const defaultPermissions = new Permission({
     //   authUserId: savedUser._id,
     //   permissions: ['viewMovies'],
