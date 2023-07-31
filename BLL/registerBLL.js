@@ -4,13 +4,20 @@ const jwt = require('jsonwebtoken');
 const AuthUser = require('../models/authUserModel');
 const Permission = require('../models/permissionModel');
 
-const registerUser = async (username, password, firstName, lastName) => {
+const registerUser = async (
+  username,
+  password,
+  firstName,
+  lastName,
+  isAdmin = true,
+  permissions = []
+) => {
   try {
     const existingUser = await AuthUser.findOne({ username });
+
     if (existingUser) {
       throw new Error('Username is already taken.');
     }
-
     if (
       !password.match(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?!.*\s).{8,}$/
@@ -38,19 +45,19 @@ const registerUser = async (username, password, firstName, lastName) => {
       password: hashedPassword,
       firstName,
       lastName,
-      isAdmin: true,
-      permissions: isAdmin ? allPermissions : [],
+      isAdmin,
+      permissions: isAdmin ? allPermissions : permissions,
     });
 
     const savedUser = await newUser.save();
 
-    // //Create default permissions for new user:
-    // const defaultPermissions = new Permission({
-    //   authUserId: savedUser._id,
-    //   permissions: ['viewMovies'],
-    // });
+    //Create  permissions for admin user:
+    const adminPermissions = new Permission({
+      authUserId: savedUser._id,
+      permissions: isAdmin ? allPermissions : permissions,
+    });
 
-    // await defaultPermissions.save();
+    await adminPermissions.save();
 
     // Generate token
     const token = jwt.sign(

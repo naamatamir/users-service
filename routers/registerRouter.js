@@ -7,9 +7,17 @@ const registerRouter = express.Router();
 
 registerRouter.route('/').post(async (req, res) => {
   try {
-    const { username, password, firstName, lastName, isAdmin, permissions } = req.body;
+    const { username, password, firstName, lastName, isAdmin, permissions } =
+      req.body;
 
-    const userRegisterData = await registerUser(username, password, firstName, lastName, isAdmin, permissions);
+    const userRegisterData = await registerUser(
+      username,
+      password,
+      firstName,
+      lastName,
+      isAdmin,
+      permissions
+    );
 
     res.status(201).json({
       message: 'Registered successfully.',
@@ -17,7 +25,12 @@ registerRouter.route('/').post(async (req, res) => {
     });
   } catch (error) {
     console.error(`Error occurred during registration: ${error.message}`);
-    res.status(500).json({ error: { message: 'An error occurred during registration. Please try again later.'  } });
+    res.status(500).json({
+      error: {
+        message:
+          'An error occurred during registration. Please try again later.',
+      },
+    });
   }
 });
 
