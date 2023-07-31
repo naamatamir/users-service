@@ -7,9 +7,9 @@ const registerRouter = express.Router();
 
 registerRouter.route('/').post(async (req, res) => {
   try {
-    const { username, password, firstName, lastName, isAdmin } = req.body;
+    const { username, password, firstName, lastName, isAdmin, permissions } = req.body;
 
-    const userRegisterData = await registerUser(username, password, firstName, lastName, isAdmin);
+    const userRegisterData = await registerUser(username, password, firstName, lastName, isAdmin, permissions);
 
     res.status(201).json({
       message: 'Registered successfully.',
