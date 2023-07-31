@@ -21,6 +21,17 @@ const registerUser = async (username, password, firstName, lastName) => {
       );
     }
 
+    const allPermissions = [
+      'viewMovies',
+      'createMovie',
+      'updateMovie',
+      'deleteMovie',
+      'viewSubscriptions',
+      'createSubscription',
+      'updateSubscription',
+      'deleteSubscription',
+    ];
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new AuthUser({
       username,
@@ -28,6 +39,7 @@ const registerUser = async (username, password, firstName, lastName) => {
       firstName,
       lastName,
       isAdmin: true,
+      permissions: isAdmin ? allPermissions : [],
     });
 
     const savedUser = await newUser.save();
