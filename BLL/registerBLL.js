@@ -16,16 +16,18 @@ const registerUser = async (
     const existingUser = await AuthUser.findOne({ username });
 
     if (existingUser) {
-      throw new Error('Username is already taken.');
+      throw { message: 'Username is already taken', statusCode: 409 };
     }
     if (
       !password.match(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?!.*\s).{8,}$/
       )
     ) {
-      throw new Error(
-        'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character. White spaces are not allowed.'
-      );
+      throw {
+        message:
+          'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character. White spaces are not allowed.',
+        statusCode: 400,
+      };
     }
 
     const allPermissions = [
@@ -67,7 +69,7 @@ const registerUser = async (
         firstName: savedUser.firstName,
         lastName: savedUser.lastName,
         isAdmin: savedUser.isAdmin,
-        permissions: savedUser.permissions,
+        permissions: allPermissions,
       },
       process.env.JWT_SECRET,
       { expiresIn: '3h' }
