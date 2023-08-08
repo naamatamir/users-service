@@ -18,7 +18,6 @@ const permissionSchema = new mongoose.Schema(
         'createSubscription',
         'updateSubscription',
         'deleteSubscription',
-        // 'admin',
       ],
     },
   },
